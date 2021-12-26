@@ -14,6 +14,7 @@
         <maven.compiler.target>15</maven.compiler.target>
         <junit.jupiter.version>5.8.2</junit.jupiter.version>
         <io.rest-assured.version>4.4.0</io.rest-assured.version>
+        <io.cucumber.version>7.1.0</io.cucumber.version>
     </properties>
 
     <reporting>
@@ -62,6 +63,25 @@
             <groupId>io.rest-assured</groupId>
             <artifactId>json-path</artifactId>
             <version>${io.rest-assured.version}</version>
+        </dependency>
+
+        <!--Cucumber -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${io.cucumber.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>${io.cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-jvm-deps</artifactId>
+            <version>1.0.6</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
