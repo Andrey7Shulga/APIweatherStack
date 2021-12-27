@@ -2,6 +2,10 @@ package weatherService;
 
 import io.restassured.response.Response;
 
+/**
+ * A wrapper class to operate with various types of Response object
+ * @param <T>
+ */
 public class RestResponse<T> implements RestResponseInt<T> {
     private T data;
     private final Response response;
@@ -10,9 +14,9 @@ public class RestResponse<T> implements RestResponseInt<T> {
     public RestResponse(Class<T> t, Response response) {
         this.response = response;
         try{
-            this.data = t.newInstance();
+            this.data = t.getDeclaredConstructor().newInstance();
         }catch (Exception e){
-            throw new RuntimeException("There should be a default constructor in the Response POJO");
+            throw new RuntimeException("The Response POJO must have a default constructor.");
         }
     }
 

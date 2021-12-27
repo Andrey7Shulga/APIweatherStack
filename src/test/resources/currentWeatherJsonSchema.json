@@ -109,7 +109,7 @@
           "type": "integer"
         },
         "precip": {
-          "type": "integer"
+          "type": "number"
         },
         "humidity": {
           "type": "integer"

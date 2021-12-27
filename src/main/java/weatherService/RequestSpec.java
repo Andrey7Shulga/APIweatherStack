@@ -5,13 +5,20 @@ import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class RequestSpec {
+
+    private static final Logger log = LoggerFactory.getLogger(RequestSpec.class);
 
     private final static String BASE_URI = "http://api.weatherstack.com/";
     private final static String APP_HEADER_JSON = "application/json";
 
     public static RequestSpecification baseRequestSpecJson() {
+
+        log.debug("BASE_URI: {}", BASE_URI);
+        log.debug("APP_HEADER: {}", APP_HEADER_JSON);
 
         return new RequestSpecBuilder()
                 .setRelaxedHTTPSValidation()
