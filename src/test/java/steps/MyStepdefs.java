@@ -6,7 +6,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.Assertions;
+import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import weatherService.ApiCore;
@@ -31,7 +31,7 @@ public class MyStepdefs {
 
     @When("Status code is equal {int}")
     public void status_code_is_equal(int int1) {
-        Assertions.assertEquals(int1, response.statusCode());
+        Assert.assertEquals(int1, response.statusCode());
     }
 
     @When("Response of current weather has the expected Json schema from a file {string}")
@@ -44,13 +44,13 @@ public class MyStepdefs {
     public void a_value_from_json_path_is_equal_to(String path, String expected) {
         log.debug("JsoPath: {}", path);
         String actual = JsonPath.from(response.asString()).getString(path);
-        Assertions.assertEquals(expected, actual);
+        Assert.assertEquals(expected, actual);
     }
 
     @Then("A response by {string} matches current weather object")
     public void aResponseMatchesCurrentWeatherObject(String city) {
         RestResponseInt<CurrentWeatherResponse> resp = apiCore.getWeatherForACityAsObject(city, Endpoints.getCurrent());
-        Assertions.assertTrue(resp.isSuccessful());
-        Assertions.assertEquals(city, resp.getBody().location.name);
+        Assert.assertTrue(resp.isSuccessful());
+        Assert.assertEquals(city, resp.getBody().location.name);
     }
 }

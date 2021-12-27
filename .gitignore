@@ -9,3 +9,4 @@ target/
 
 # Java
 config.properties
+*.log

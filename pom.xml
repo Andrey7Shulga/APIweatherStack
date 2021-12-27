@@ -12,7 +12,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>15</maven.compiler.source>
         <maven.compiler.target>15</maven.compiler.target>
-        <junit.jupiter.version>5.8.2</junit.jupiter.version>
+        <!--junit.jupiter.version>5.8.2</junit.jupiter.version-->
         <io.rest-assured.version>4.4.0</io.rest-assured.version>
         <io.cucumber.version>7.1.0</io.cucumber.version>
     </properties>
@@ -28,23 +28,11 @@
     </reporting>
 
     <dependencies>
-        <!--JUnit 5 -->
+        <!--JUnit 4 -->
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>${junit.jupiter.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>${junit.jupiter.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-params</artifactId>
-            <version>${junit.jupiter.version}</version>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
 
@@ -152,8 +140,10 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>3.0.0-M5</version>
                     <configuration>
-                        <argLine>
-                        </argLine>
+                        <includes>
+                            <include>**/TestRunner*.java</include>
+                        </includes>
+                        <testFailureIgnore>true</testFailureIgnore>
                     </configuration>
                 </plugin>
                 <plugin>
