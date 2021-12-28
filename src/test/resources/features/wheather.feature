@@ -19,3 +19,17 @@ Feature: End to End Test for WeatherStack API
         | Paris      |
         | Tokyo      |
 
+
+      Scenario Outline: Checking negative scenarios
+        When A request to endpoint "<endpoint>" with key "<key>" for "<city>" city has sent
+        Then Status code is equal 200
+        Then A value from jsonPath "error.code" is equal to "<code>"
+        Then A value from jsonPath "error.type" is equal to "<text>"
+
+        Examples:
+          | endpoint      | key                              | city                     | code | text                               |
+          | current       |                                  | Tokyo                    | 101  | missing_access_key                 |
+          | current       | bb98b761a6a29f43187db0c088800fc4 |                          | 601  | missing_query                      |
+          | currentFalse  | bb98b761a6a29f43187db0c088800fc4 | Tokyo                    | 103  | invalid_api_function               |
+          | current       | bb98b761a6a29f43187db0c088800fc4 | London;Singapur;Shanghai | 604  | bulk_queries_not_supported_on_plan |
+

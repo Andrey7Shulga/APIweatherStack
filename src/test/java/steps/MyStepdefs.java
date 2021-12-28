@@ -1,5 +1,6 @@
 package steps;
 
+import config.ConfigReader;
 import dto.request.City;
 import dto.response.CurrentWeatherResponse;
 import io.cucumber.java.en.Given;
@@ -25,13 +26,21 @@ public class MyStepdefs {
     private final ApiCore apiCore;
     private static Response response;
     private static CurrentWeatherResponse currentWeatherResponse;
+    private static final String key = ConfigReader.getInstance().getProperty("key");
+
 
     public MyStepdefs() {apiCore = new ApiCore();}
 
     @Given("{string} city weather info received")
     public void cityWeatherInfoReceived(String city) {
-        response = apiCore.getWeatherForACity(city, Endpoints.getCurrent());
+        response = apiCore.getWeatherForACityWithKey(city, Endpoints.getCurrent(), key);
     }
+
+    @Given("A request to endpoint {string} with key {string} for {string} city has sent")
+    public void aRequestToEndpointWithKeyForCityHasSent(String endpoint, String key, String city) {
+        response = apiCore.getWeatherForACityWithKey(city, endpoint, key);
+    }
+
 
     @When("Status code is equal {int}")
     public void status_code_is_equal(int int1) {
@@ -54,7 +63,7 @@ public class MyStepdefs {
 
     @Then("A response by {string} matches current weather object")
     public void aResponseMatchesCurrentWeatherObject(String city) {
-        RestResponseInt<CurrentWeatherResponse> resp = apiCore.getWeatherForACityAsObject(city, Endpoints.getCurrent());
+        RestResponseInt<CurrentWeatherResponse> resp = apiCore.getWeatherForACityAsObject(city, Endpoints.getCurrent(), key);
         Assert.assertTrue(resp.isSuccessful());
         currentWeatherResponse = resp.getBody();
         Assert.assertEquals(city, currentWeatherResponse.location.name);
@@ -100,5 +109,10 @@ public class MyStepdefs {
             log.info("{} City's pressure: expected - {}, actual - {}", city.getName(), city.getPressure(), currentWeatherResponse.current.pressure);
         }
     }
+
+
+
+    //for negative tests
+
 
 }

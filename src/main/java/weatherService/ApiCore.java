@@ -16,17 +16,14 @@ import static io.restassured.RestAssured.given;
 public class ApiCore {
 
     private static final Logger log = LoggerFactory.getLogger(ApiCore.class);
-//    private static final String key = "bb98b761a6a29f43187db0c088800fc4";
-    private static final String key = ConfigReader.getInstance().getProperty("key");
 
-
-    public Response getWeatherForACity (String city, String endpoint) {
+    public Response getWeatherForACityWithKey (String city, String endpoint, String key) {
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
         RequestSpecification requestSpecification = RequestSpec.baseRequestSpecJson();
 
         Map<String, String> query = new HashMap<>();
-            query.put("access_key", key);
-            query.put("query", city);
+        query.put("access_key", key);
+        query.put("query", city);
 
         log.debug("Access Key: {}", key);
         log.debug("City: {}", city);
@@ -39,8 +36,8 @@ public class ApiCore {
 
     }
 
-    public RestResponseInt<CurrentWeatherResponse> getWeatherForACityAsObject (String city, String endpoint) {
-        Response response =  getWeatherForACity(city, endpoint);
+    public RestResponseInt<CurrentWeatherResponse> getWeatherForACityAsObject (String city, String endpoint, String key) {
+        Response response =  getWeatherForACityWithKey(city, endpoint, key);
         return new RestResponse<>(CurrentWeatherResponse.class, response);
     }
 
