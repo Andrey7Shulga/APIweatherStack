@@ -41,7 +41,6 @@ public class MyStepdefs {
         response = apiCore.getWeatherForACityWithKey(city, endpoint, key);
     }
 
-
     @When("Status code is equal {int}")
     public void status_code_is_equal(int int1) {
         log.debug("Status code: {}",response.statusCode());
@@ -109,10 +108,4 @@ public class MyStepdefs {
             log.info("{} City's pressure: expected - {}, actual - {}", city.getName(), city.getPressure(), currentWeatherResponse.current.pressure);
         }
     }
-
-
-
-    //for negative tests
-
-
 }
