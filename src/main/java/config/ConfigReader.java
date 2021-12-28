@@ -12,20 +12,14 @@ public class ConfigReader {
     private static ConfigReader configReader;
 
     private ConfigReader() {
-        BufferedReader reader;
         String propertyFilePath = "src/main/java/config/configuration.properties";
         properties = new Properties();
-        try {
-            reader = new BufferedReader(new FileReader(propertyFilePath));
-            try {
-                properties.load(reader);
-                reader.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        try (BufferedReader reader = new BufferedReader(new FileReader(propertyFilePath))) {
+            properties.load(reader);
         } catch (FileNotFoundException e) {
+            throw new RuntimeException("Configuration properties are not found at " + propertyFilePath, e.fillInStackTrace());
+        } catch (IOException e) {
             e.printStackTrace();
-            throw new RuntimeException("Configuration properties are not found at " + propertyFilePath);
         }
     }
 
