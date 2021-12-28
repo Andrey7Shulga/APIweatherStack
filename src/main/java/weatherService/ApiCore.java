@@ -1,5 +1,6 @@
 package weatherService;
 
+import config.ConfigReader;
 import dto.response.CurrentWeatherResponse;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -15,7 +16,9 @@ import static io.restassured.RestAssured.given;
 public class ApiCore {
 
     private static final Logger log = LoggerFactory.getLogger(ApiCore.class);
-    private static final String key = "bb98b761a6a29f43187db0c088800fc4";
+//    private static final String key = "bb98b761a6a29f43187db0c088800fc4";
+    private static final String key = ConfigReader.getInstance().getProperty("key");
+
 
     public Response getWeatherForACity (String city, String endpoint) {
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();

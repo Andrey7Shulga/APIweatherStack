@@ -35,6 +35,7 @@ public class MyStepdefs {
 
     @When("Status code is equal {int}")
     public void status_code_is_equal(int int1) {
+        log.debug("Status code: {}",response.statusCode());
         Assert.assertEquals(int1, response.statusCode());
     }
 

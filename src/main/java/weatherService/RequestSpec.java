@@ -1,5 +1,6 @@
 package weatherService;
 
+import config.ConfigReader;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
@@ -12,8 +13,8 @@ public class RequestSpec {
 
     private static final Logger log = LoggerFactory.getLogger(RequestSpec.class);
 
-    private final static String BASE_URI = "http://api.weatherstack.com/";
-    private final static String APP_HEADER_JSON = "application/json";
+    private final static String BASE_URI = ConfigReader.getInstance().getProperty("base_uri");
+    private final static String APP_HEADER_JSON = ConfigReader.getInstance().getProperty("app_header_json");
 
     public static RequestSpecification baseRequestSpecJson() {
 
